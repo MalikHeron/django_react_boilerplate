@@ -29,8 +29,29 @@ TEMPLATES_DIR = os.path.join(ROOT_BASE_DIR,'templates')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+CORS_ALLOW_ALL_ORIGINS = True  # Set to False to use CORS_ALLOWED_ORIGINS
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React frontend
+]
+
+CORS_ALLOW_CREDENTIALS = True  # If using cookies or authentication
+CORS_ALLOW_METHODS = [  # Explicitly allow common request methods
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+CORS_ALLOW_HEADERS = [  # Allow common headers
+    "Authorization",
+    "Content-Type",
+    "X-CSRFToken",
+]
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
 # Application definition
 
@@ -43,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "corsheaders",
     "rest_framework",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -106,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 

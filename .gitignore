@@ -2,6 +2,8 @@
 /backend/db.sqlite3
 .DS_Store
 .env
+.venv/
+.venv
 */settings/local.py
 /static/*
 /media/*
