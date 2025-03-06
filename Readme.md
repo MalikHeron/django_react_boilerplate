@@ -5,6 +5,7 @@ A full-stack boilerplate integrating **Django**, **React**, **PostgreSQL**, **Do
 ---
 
 ## **Features**
+
 - 🐍 **Django Backend** – RESTful API using Django REST Framework
 - ⚛️ **React Frontend** – Built with React + TypeScript and TailwindCSS
 - 🐘 **PostgreSQL Database** – Robust database support
@@ -25,15 +26,12 @@ backend/                 # Backend (Django REST API)
     ├── templates/       # HTML templates
     ├── manage.py        # Django CLI
     ├── Dockerfile       # Backend Docker config
-
 frontend/                # Frontend (React + TypeScript)
     ├── src/             # Source code
     ├── public/          # Public assets
     ├── Dockerfile       # Frontend Docker config
     ├── vite.config.ts   # Vite configuration
-
 nginx/                   # Nginx reverse proxy
-
 docker-compose.yml       # Docker Compose config
 .env                     # Environment variables (ignored in Git)
 .gitignore               # Files to ignore in Git
@@ -59,6 +57,7 @@ cd django-react-boilerplate
 ### **2. Set Up Environment Variables**
 
 #### **Backend Environment Variables**
+
 Create a `.env` file in the root directory and add the following:
 
 ```dotenv
@@ -74,7 +73,7 @@ POSTGRES_DB=docker
 HOST_MACHINE_MYSQL_PORT=5432
 ```
 
-Additionally, create a `.env` file in the `backend/` directory:
+Additionally, create a `.env` file in the `backend/django_backend/settings` directory:
 
 ```dotenv
 SECRET_KEY='secret'
@@ -93,6 +92,7 @@ DB_DOCKER_PORT=5432
 ```
 
 #### **Frontend Environment Variables**
+
 Create a `.env` file in the `frontend/` directory:
 
 ```dotenv
@@ -138,6 +138,7 @@ from .dev import *
 This change will make sure that the development settings (`dev.py`) are used instead of the Docker-specific settings (`docker.py`).
 
 #### **Backend Setup**
+
 Next, set up the backend manually:
 
 ```sh
@@ -150,6 +151,7 @@ python manage.py runserver
 ```
 
 #### **Frontend Setup**
+
 To set up the frontend, run the following commands:
 
 ```sh
@@ -171,16 +173,20 @@ npm run dev
 ## **Troubleshooting**
 
 ### **CORS Issues**
+
 If you're facing CORS issues, ensure that `CORS_ALLOWED_ORIGINS` in `settings/base.py` includes `"http://localhost:5173"` for the React development server.
 
 ### **Database Connection Issues**
+
 If you're encountering database connection issues:
+
 - Make sure PostgreSQL is running.
 - Verify that `DATABASE_URL` is correctly set in the `.env` files for both backend and frontend.
 
 ---
 
 ## **License**
+
 This project is licensed under the MIT License.
 
 ---
