@@ -22,13 +22,10 @@ ENV REACT_APP_API_SERVER=${API_SERVER}
 RUN REACT_APP_API_SERVER=${API_SERVER} \
   npm run build
 
-
-
-
 FROM node:14.19-alpine3.15
 
 WORKDIR /usr/src/app
 
 RUN npm install -g serve
 
-COPY --from=BUILDER /usr/src/app/build ./build
+COPY --from=BUILDER /usr/src/app/dist ./dist

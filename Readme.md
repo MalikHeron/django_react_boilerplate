@@ -15,28 +15,30 @@ A full-stack boilerplate integrating **Django**, **React**, **PostgreSQL**, **Do
 ---
 
 ## **Project Structure**
-```
-.readme_assets/          # Documentation assets
-.venv/                   # Virtual environment (ignored in Git)
-.vscode/                 # VSCode settings
-django_backend/          # Backend (Django REST API)
+
+```plaintext
+backend/                 # Backend (Django REST API)
+    ├── .venv/           # Virtual environment (ignored in Git)
     ├── api/             # Django app
     ├── django_backend/  # Django project settings
     ├── static/          # Static files
     ├── templates/       # HTML templates
     ├── manage.py        # Django CLI
     ├── Dockerfile       # Backend Docker config
-nginx/                   # Nginx reverse proxy
-react_frontend/          # Frontend (React + TypeScript)
+
+frontend/                # Frontend (React + TypeScript)
     ├── src/             # Source code
     ├── public/          # Public assets
     ├── Dockerfile       # Frontend Docker config
     ├── vite.config.ts   # Vite configuration
+
+nginx/                   # Nginx reverse proxy
+
 docker-compose.yml       # Docker Compose config
 .env                     # Environment variables (ignored in Git)
 .gitignore               # Files to ignore in Git
 LICENSE                  # Project license
-Readme.md                # Documentation
+README.md                # Documentation
 ```
 
 ---
@@ -44,6 +46,9 @@ Readme.md                # Documentation
 ## **Setup Instructions**
 
 ### **1. Clone the Repository**
+
+First, clone the repository to your local machine:
+
 ```sh
 git clone https://github.com/MalikHeron/django-react-boilerplate.git
 cd django-react-boilerplate
@@ -52,8 +57,11 @@ cd django-react-boilerplate
 ---
 
 ### **2. Set Up Environment Variables**
-Create a `.env` file in the root directory and add:
-```
+
+#### **Backend Environment Variables**
+Create a `.env` file in the root directory and add the following:
+
+```dotenv
 COMPOSE_PROJECT_NAME=your_name_react_django_nginx_postgresql
 
 ENV_API_SERVER=http://127.0.0.1
@@ -62,11 +70,13 @@ POSTGRES_USER=docker
 POSTGRES_PASSWORD=SuperDockerPassword5432!!!
 POSTGRES_DB=docker
 
-# If you already have the port 3306 in use, you can change it (for example if you have MySQL)
+# If you already have port 3306 in use, you can change it (e.g., for MySQL)
 HOST_MACHINE_MYSQL_PORT=5432
 ```
-For backend, add a `.env` file in `django_backend/`:
-```
+
+Additionally, create a `.env` file in the `backend/` directory:
+
+```dotenv
 SECRET_KEY='secret'
 
 DB_NAME='django_db'
@@ -81,8 +91,11 @@ DB_DOCKER_PASSWORD='SuperDockerPassword5432!!!'
 DB_DOCKER_HOST='database'
 DB_DOCKER_PORT=5432
 ```
-For frontend, add a `.env` file in `react_frontend/`:
-```
+
+#### **Frontend Environment Variables**
+Create a `.env` file in the `frontend/` directory:
+
+```dotenv
 VITE_API_URL_DEV=http://127.0.0.1:8000/api
 VITE_API_URL_PROD=
 ```
@@ -90,20 +103,45 @@ VITE_API_URL_PROD=
 ---
 
 ### **3. Start the Project Using Docker**
+
+Run the following command to build and start the project using Docker:
+
 ```sh
 docker-compose up --build
 ```
-- **Backend** → `http://127.0.0.1:8000/`
-- **Frontend** → `http://localhost:5173/`
-- **Nginx Proxy** → `http://localhost/`
+
+- **Backend** → `http://localhost:80/api` or `http://localhost:80/admin`
+- **Frontend** → `http://localhost:80/`
+- **Nginx Proxy** → `http://localhost:80/`
 
 ---
 
 ### **4. Manual Setup (Without Docker)**
 
+#### **Change the Default `settings.py` File**
+
+To change the default `settings.py` file from Docker to development, follow these steps:
+
+1. Go to the file `django_backend/django_backend/settings/__init__.py`.
+2. Modify the following line of code:
+
+```python
+from .docker import *
+```
+
+to
+
+```python
+from .dev import *
+```
+
+This change will make sure that the development settings (`dev.py`) are used instead of the Docker-specific settings (`docker.py`).
+
 #### **Backend Setup**
+Next, set up the backend manually:
+
 ```sh
-cd django_backend
+cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -112,8 +150,10 @@ python manage.py runserver
 ```
 
 #### **Frontend Setup**
+To set up the frontend, run the following commands:
+
 ```sh
-cd react_frontend
+cd frontend
 npm install
 npm run dev
 ```
@@ -121,18 +161,22 @@ npm run dev
 ---
 
 ## **API Endpoints**
-| Method | Endpoint              | Description                 |
-|--------|-----------------------|-----------------------------|
-| GET    | `/api/features/`      | List available features    |
+
+| Method | Endpoint              | Description                    |
+|--------|-----------------------|--------------------------------|
+| GET    | `/api/features/`      | List available features       |
 
 ---
 
 ## **Troubleshooting**
+
 ### **CORS Issues**
-- Ensure `CORS_ALLOWED_ORIGINS` in `settings/base.py` includes `"http://localhost:5173"`
+If you're facing CORS issues, ensure that `CORS_ALLOWED_ORIGINS` in `settings/base.py` includes `"http://localhost:5173"` for the React development server.
 
 ### **Database Connection Issues**
-- Ensure PostgreSQL is running and `DATABASE_URL` is correctly set in `.env`
+If you're encountering database connection issues:
+- Make sure PostgreSQL is running.
+- Verify that `DATABASE_URL` is correctly set in the `.env` files for both backend and frontend.
 
 ---
 

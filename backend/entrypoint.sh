@@ -15,8 +15,6 @@ python manage.py makemigrations
 
 gunicorn django_backend.wsgi:application --bind 0.0.0.0:8000
 
-
-
 echo "Postgresql migrations finished"
 
 python manage.py runserver

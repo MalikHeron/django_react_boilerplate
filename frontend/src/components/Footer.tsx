@@ -6,22 +6,26 @@ const Footer = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const internalPages = ['/dashboard', '/generate', '/editor']
-    const isOnInternalPage = internalPages.some(page => location.pathname.includes(page));
-    setShowFooter(!isOnInternalPage);
+    const footerPages = ['/', '/', '/']
+    const isOnFooterPages = footerPages.some(page => location.pathname.includes(page));
+    setShowFooter(isOnFooterPages);
   }, [location]);
 
   return (
     showFooter && (
-      <footer className="py-8">
+      <footer className="grid grid-cols-3 gap-4">
         {/* Footer Bottom */}
         <div className="py-8 text-center bg-black-light text-sm">
+        </div>
+        <div className="py-8 text-center bg-black-light text-sm">
           <p className="text-grey-light">
-            &copy; {new Date().getFullYear()} All rights reserved.{" "}
+            Copyright &copy; {new Date().getFullYear()} {" "}
             <a href="https://malikheron.github.io" className="hover:underline" target="_blank" rel="noopener noreferrer">
               Malik Heron
             </a>
           </p>
+        </div>
+        <div className="py-8 text-center bg-black-light text-sm">
         </div>
       </footer>
     )

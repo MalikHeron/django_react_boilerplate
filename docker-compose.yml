@@ -1,9 +1,7 @@
-version: "3.7"
-
 services:
   backend:
     build:
-      context: ./django_backend
+      context: ./backend
       dockerfile: Dockerfile
     volumes:
       - django_static_volume:/usr/src/app/static
@@ -27,12 +25,12 @@ services:
       - 5432:5432
   frontend:
     build:
-      context: ./react_frontend
+      context: ./frontend
       dockerfile: Dockerfile
       args:
         - API_SERVER=${ENV_API_SERVER}
     volumes:
-      - react_static_volume:/usr/src/app/build/static
+      - react_static_volume:/usr/src/app/dist/static
     hostname: frontend
     expose:
       - 3000
