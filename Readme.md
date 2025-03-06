@@ -97,12 +97,25 @@ Create a `.env` file in the `frontend/` directory:
 
 ```dotenv
 VITE_API_URL_DEV=http://127.0.0.1:8000/api
+VITE_API_URL_DOCKER=http://localhost:80/api
 VITE_API_URL_PROD=
 ```
 
 ---
 
 ### **3. Start the Project Using Docker**
+
+#### **Frontend Setup**
+
+To set up the frontend, run the following commands:
+
+```sh
+cd frontend
+npm install
+npm run build
+```
+
+---
 
 Run the following command to build and start the project using Docker:
 

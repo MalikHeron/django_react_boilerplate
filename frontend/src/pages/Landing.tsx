@@ -7,7 +7,7 @@ import ReactIcon from "@assets/react.svg";
 
 const API_URL = import.meta.env.DEV
   ? import.meta.env.VITE_API_URL_DEV
-  : import.meta.env.VITE_API_URL_PROD;
+  : import.meta.env.VITE_API_URL_DOCKER; // When running inside Docker, this will be used
 
 const Landing = () => {
   const [features, setFeatures] = useState<Feature[]>([]);
@@ -17,17 +17,24 @@ const Landing = () => {
     const fetchFeatures = async () => {
       try {
         const response = await fetch(`${API_URL}/features/`);
-        if (!response.ok) throw new Error("Failed to fetch features");
+        if (!response.ok) {
+          // Log the status code and URL for debugging
+          console.error(`Failed to fetch features from ${API_URL}/features/ - Status: ${response.status}`);
+          throw new Error("Failed to fetch features");
+        }
         const data = await response.json();
         setFeatures(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
+          console.error("Error fetching features:", error.message);  // Log the error message
           setError(error.message);
         } else {
+          console.error("An unknown error occurred while fetching features");
           setError("An unknown error occurred");
         }
       }
     };
+
     fetchFeatures();
   }, []);
 
