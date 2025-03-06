@@ -28,4 +28,4 @@ WORKDIR /usr/src/app
 
 RUN npm install -g serve
 
-COPY --from=BUILDER /usr/src/app/dist ./dist
+COPY --from=BUILDER /usr/src/app/build ./build

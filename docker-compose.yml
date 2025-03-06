@@ -12,8 +12,9 @@ services:
     command: ./entrypoint.sh
     links:
       - database
+      
   database:
-    image: postgres:13-alpine
+    image: postgres:17.4
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     restart: 'always'
@@ -23,6 +24,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 5432:5432
+
   frontend:
     build:
       context: ./frontend
@@ -30,7 +32,7 @@ services:
       args:
         - API_SERVER=${ENV_API_SERVER}
     volumes:
-      - react_static_volume:/usr/src/app/dist/static
+      - react_static_volume:/usr/src/app/build/static
     hostname: frontend
     expose:
       - 3000

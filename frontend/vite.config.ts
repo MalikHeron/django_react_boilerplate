@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import { ViteAliases } from 'vite-aliases'
 
 export default defineConfig({
+    build: {
+        outDir: 'build',
+    },
    plugins: [
       react(),
       ViteAliases({
