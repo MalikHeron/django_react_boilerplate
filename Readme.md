@@ -105,6 +105,23 @@ VITE_API_URL_PROD=
 
 ### **3. Start the Project Using Docker**
 
+---
+
+#### **Backend Setup**
+
+To set up the backend:
+
+1. Run the following command:
+
+```sh
+cd backend
+```
+
+2. Go to the file `entrypoint.sh`.
+3. Change the End of file sequence from `CRLF` to `LF`.
+
+---
+
 #### **Frontend Setup**
 
 To set up the frontend, run the following commands:
