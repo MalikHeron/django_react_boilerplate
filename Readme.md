@@ -19,7 +19,7 @@ A full-stack boilerplate integrating **Django**, **React**, **PostgreSQL**, **Do
 
 ```plaintext
 backend/                 # Backend (Django REST API)
-    ├── .venv/           # Virtual environment (ignored in Git)
+    ├── venv/           # Virtual environment (ignored in Git)
     ├── api/             # Django app
     ├── django_backend/  # Django project settings
     ├── static/          # Static files
@@ -195,7 +195,7 @@ npm run dev
 | Service   | Running with Docker              | Running without Docker              |  
 |-----------|---------------------------------|--------------------------------------|  
 | Backend   | `http://localhost:80/api` or `http://localhost:80/admin` | `http://localhost:8000/api` or `http://localhost:8000/admin` |  
-| Frontend  | `http://localhost:5173/`        | `http://localhost:80/`              |  
+| Frontend  | `http://localhost:80/`        | `http://localhost:5173/` |  
 
 ---
 
@@ -211,7 +211,7 @@ npm run dev
 
 ### **CORS Issues**
 
-If you're facing CORS issues, ensure that `CORS_ALLOWED_ORIGINS` in `settings/base.py` includes `"http://localhost:5173"` for the React development server.
+If you're facing CORS issues, ensure that `CORS_ALLOWED_ORIGINS` in `settings/base.py` includes `http://localhost:5173` for the React development server.
 
 ### **Database Connection Issues**
 
