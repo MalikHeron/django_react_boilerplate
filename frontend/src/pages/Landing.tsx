@@ -1,41 +1,35 @@
 import { Feature } from "@models/Feature";
 import { useEffect, useState } from "react";
-
-// Assets
 import DjangoIcon from "@assets/django.png";
 import ReactIcon from "@assets/react.svg";
+import { DjangoService } from "@services/DjangoService";
 
-const API_URL = import.meta.env.DEV
-  ? import.meta.env.VITE_API_URL_DEV
-  : import.meta.env.VITE_API_URL_DOCKER; // When running inside Docker, this will be used
-
+/**
+ * The `Landing` component represents the landing page of the application.
+ * It fetches and displays features of the application using Django and React.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Landing />
+ * )
+ *
+ * @returns {JSX.Element} The rendered landing page component.
+ */
 const Landing = () => {
+  // State variables to store the features and error message
   const [features, setFeatures] = useState<Feature[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetches features from the Django backend service when the component mounts.
   useEffect(() => {
-    const fetchFeatures = async () => {
-      try {
-        const response = await fetch(`${API_URL}/features/`);
-        if (!response.ok) {
-          // Log the status code and URL for debugging
-          console.error(`Failed to fetch features from ${API_URL}/features/ - Status: ${response.status}`);
-          throw new Error("Failed to fetch features");
-        }
-        const data = await response.json();
+    new DjangoService().fetchFeatures().then(([success, data]) => {
+      if (success) {
         setFeatures(data);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          console.error("Error fetching features:", error.message);  // Log the error message
-          setError(error.message);
-        } else {
-          console.error("An unknown error occurred while fetching features");
-          setError("An unknown error occurred");
-        }
+      } else {
+        setError(data);
       }
-    };
-
-    fetchFeatures();
+    });
   }, []);
 
   return (
@@ -69,9 +63,9 @@ const Landing = () => {
             <p className="text-red-500 text-center" data-aos="fade-up">{error}</p>
           ) : features.length > 0 ? (
             features.map((feature) => (
-              <div 
-                key={feature.id} 
-                className="bg-black-lighter p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:scale-105" 
+              <div
+                key={feature.id}
+                className="bg-black-lighter p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:scale-105"
                 data-aos="fade-up"
               >
                 <h3 className="text-2xl font-semibold text-verdigris mb-3">{feature.title}</h3>
